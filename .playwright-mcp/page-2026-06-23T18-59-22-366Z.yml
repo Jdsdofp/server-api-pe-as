@@ -1,0 +1,302 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]: PARTS/lookup
+    - generic [ref=e4]: GM Parts API Tester
+    - button "📷 OCR" [ref=e5] [cursor=pointer]
+  - generic [ref=e8]:
+    - generic [ref=e9] [cursor=pointer]:
+      - generic [ref=e10]: ⬡
+      - generic [ref=e11]: foto / upload
+      - button "Choose File" [ref=e12]
+    - generic [ref=e13]:
+      - button "Extrair →" [disabled] [ref=e14]
+      - button "✕" [disabled] [ref=e15]
+  - generic [ref=e16]:
+    - generic [ref=e17]:
+      - generic [ref=e18]: Número da peça
+      - 'textbox "ex: 12616850" [ref=e19]': "12616850"
+    - generic [ref=e20]:
+      - generic [ref=e21]: Endpoint
+      - generic [ref=e22]:
+        - button "/api/preco" [ref=e23] [cursor=pointer]
+        - button "/api/peca" [ref=e24] [cursor=pointer]
+        - button "/api/shopping" [ref=e25] [cursor=pointer]
+        - button "/api/peca-completa" [ref=e26] [cursor=pointer]
+    - button "Buscar →" [ref=e34] [cursor=pointer]
+  - main [ref=e35]:
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]: "12616850"
+        - generic [ref=e43]: /api/peca-completa?num=12616850
+      - generic [ref=e44]:
+        - generic [ref=e45]: Nome
+        - generic [ref=e46]: www.gmpartsdirect.com
+      - generic [ref=e47]:
+        - generic [ref=e48]: Melhor preço
+        - generic [ref=e49]: $6.95
+    - generic [ref=e50]:
+      - generic [ref=e51]: PREÇOS ENCONTRADOS — 16 ofertas (ordenado menor→maior)
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - generic [ref=e54]: "#1"
+          - generic [ref=e55]:
+            - generic [ref=e56]: Bing Shopping
+            - link "↗" [ref=e57] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=a684965f8caba2963ba3670f77f8a15c72cdd1d5893c67f92d2102459816af5aJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTMyOTA0NjgyODY4MyZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e58]: $6.95melhor
+        - generic [ref=e59]:
+          - generic [ref=e60]: "#2"
+          - generic [ref=e61]:
+            - generic [ref=e62]: Bing Shopping
+            - link "↗" [ref=e63] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=5e6d39231503ac471606ac98bb56703f96b9202b0d53544bedda4f3557530aa9JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTM4NDg0MjUxNTc3NiZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e64]: $6.99
+        - generic [ref=e65]:
+          - generic [ref=e66]: "#3"
+          - generic [ref=e67]:
+            - generic [ref=e68]: Bing Shopping
+            - link "↗" [ref=e69] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=157214a870dd1ae539a5a536d0cab0bd07406c4ed56bde7d76e4da95c651988cJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTc4NzY4OTUyMzg4JkZPUk09U0hQUERQ&ntb=1
+          - generic [ref=e70]: $6.99
+        - generic [ref=e71]:
+          - generic [ref=e72]: "#4"
+          - generic [ref=e73]:
+            - generic [ref=e74]: Bing Shopping
+            - link "↗" [ref=e75] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=58097e96350b775b679cfe39008412c9c06035a8e14308be5a811900e7e51e53JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTExOTI0MTU2OTUzNSZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e76]: $7.12
+        - generic [ref=e77]:
+          - generic [ref=e78]: "#5"
+          - generic [ref=e79]:
+            - generic [ref=e80]: Bing Shopping
+            - link "↗" [ref=e81] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=38d27662691cd1d0221095d88db18b9fc81118b35fa5366d2f8603d72472fd02JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTQwMzMxODgwNjkxNCZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e82]: $7.99
+        - generic [ref=e83]:
+          - generic [ref=e84]: "#6"
+          - generic [ref=e85]:
+            - generic [ref=e86]: Bing Shopping
+            - link "↗" [ref=e87] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=b781e23b2a7dbdecddcf541250b3dc0584b3bb689cb04d1684afca0501cde2beJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTE0MzI2ODI4ODE5MyZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e88]: $10.04
+        - generic [ref=e89]:
+          - generic [ref=e90]: "#7"
+          - generic [ref=e91]:
+            - generic [ref=e92]: Bing Shopping
+            - link "↗" [ref=e93] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=70939f1ee7b8831423573d503927a0a1eef11cfd28ee54e43679f476784a0685JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTM5MjcxNzYxOTk0NiZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e94]: $10.39
+        - generic [ref=e95]:
+          - generic [ref=e96]: "#8"
+          - generic [ref=e97]:
+            - generic [ref=e98]: Bing Shopping
+            - link "↗" [ref=e99] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=61da694836941bc5e313de52c8d7ffab0d9261fb04ca5d9f77f181060b94d381JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTM2MTg3NDUyMTg3MyZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e100]: $11.77
+        - generic [ref=e101]:
+          - generic [ref=e102]: "#9"
+          - generic [ref=e103]:
+            - generic [ref=e104]: Bing Shopping
+            - link "↗" [ref=e105] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=51f1d788c9606629778d8e0e42f37f51b627dade2449ddb90e37b25241687a91JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTQyOTQzOTU2NzkyMCZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e106]: $11.95
+        - generic [ref=e107]:
+          - generic [ref=e108]: "#10"
+          - generic [ref=e109]:
+            - generic [ref=e110]: Bing Shopping
+            - link "↗" [ref=e111] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=d99cb1f05d00324b711f357ebf3bafda0b521938872b35fb081cb5249044ff53JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTQwNDExMzEzNTk2MiZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e112]: $14.14
+        - generic [ref=e113]:
+          - generic [ref=e114]: "#11"
+          - generic [ref=e115]:
+            - generic [ref=e116]: Bing Shopping
+            - link "↗" [ref=e117] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=056104224509957c733e45162e38ab7be3211218c0fd0205335e7be81e77e989JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTQxNzE5OTYxMzE1MyZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e118]: $14.85
+        - generic [ref=e119]:
+          - generic [ref=e120]: "#12"
+          - generic [ref=e121]:
+            - generic [ref=e122]: Bing Shopping
+            - link "↗" [ref=e123] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=853d3088fded81da0404325f3035e366d2ae16d75dd8c7bc1007e858680364eeJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTEzMzA2OTgyMzU2NyZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e124]: $15.98
+        - generic [ref=e125]:
+          - generic [ref=e126]: "#13"
+          - generic [ref=e127]:
+            - generic [ref=e128]: Bing Shopping
+            - link "↗" [ref=e129] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=5b85a5bec85c6e44833f8a986d9973474cef3d06bc5cd75e32629c4625c8c9d4JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTMwMTI1OTM5MzQ0NiZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e130]: $22.25
+        - generic [ref=e131]:
+          - generic [ref=e132]: "#14"
+          - generic [ref=e133]:
+            - generic [ref=e134]: Bing Shopping
+            - link "↗" [ref=e135] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=0ee1011e0eee471314c14f1599bb160a00b1d9653597cd99d7debb1ae4b868d6JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTMwMTMwMDEwNTUxMyZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e136]: $22.25
+        - generic [ref=e137]:
+          - generic [ref=e138]: "#15"
+          - generic [ref=e139]:
+            - generic [ref=e140]: Bing Shopping
+            - link "↗" [ref=e141] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=ca55096d6010497019a98784b557b129f31cb650f36f50daf58e0b275f678d80JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTQyODQyMjY2OTg0MiZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e142]: $23.98
+        - generic [ref=e143]:
+          - generic [ref=e144]: "#16"
+          - generic [ref=e145]:
+            - generic [ref=e146]: Bing Shopping
+            - link "↗" [ref=e147] [cursor=pointer]:
+              - /url: https://www.bing.com/ck/a?!&&p=8c2a2125b66d839067ca5a20311885e26165b727c0d925b43568d6e135a6098fJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTE3NzcyMDQ0Njc1NCZGT1JNPVNIUFBEUA&ntb=1
+          - generic [ref=e148]: $33.99
+    - generic [ref=e149]:
+      - generic [ref=e150]:
+        - generic [ref=e151] [cursor=pointer]:
+          - generic [ref=e152]: Bing Shopping
+          - generic [ref=e153]:
+            - generic [ref=e154]: 16 resultados
+            - generic [ref=e155]: ▾
+        - generic [ref=e156]:
+          - generic [ref=e157]:
+            - generic [ref=e158]:
+              - generic [ref=e159]:
+                - generic [ref=e160]: bing
+                - generic [ref=e161]: 15Pc Drain Plug Rubber Washer 12616850 12mm For Chevrolet/GMC By AUTOMAJOR | Fits Silverado Sierra Tahoe Suburban Buick Cadillac 1975-2024 Oil Drain
+                - link "↗ ver produto" [ref=e162] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=a684965f8caba2963ba3670f77f8a15c72cdd1d5893c67f92d2102459816af5aJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTMyOTA0NjgyODY4MyZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e163]: $6.95
+            - generic [ref=e164]:
+              - generic [ref=e165]:
+                - generic [ref=e166]: bing
+                - generic [ref=e167]: GMC 12616850
+                - link "↗ ver produto" [ref=e168] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=5e6d39231503ac471606ac98bb56703f96b9202b0d53544bedda4f3557530aa9JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTM4NDg0MjUxNTc3NiZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e169]: $6.99
+            - generic [ref=e170]:
+              - generic [ref=e171]:
+                - generic [ref=e172]: bing
+                - generic [ref=e173]: "Acdelco 12616850: Acdelco GM Genuine Parts Transmission Drain Plug Gaskets"
+                - link "↗ ver produto" [ref=e174] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=157214a870dd1ae539a5a536d0cab0bd07406c4ed56bde7d76e4da95c651988cJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTc4NzY4OTUyMzg4JkZPUk09U0hQUERQ&ntb=1
+              - generic [ref=e175]: $6.99
+            - generic [ref=e176]:
+              - generic [ref=e177]:
+                - generic [ref=e178]: bing
+                - generic [ref=e179]: Acdelco 12616850 Engine Oil Drain Plug Gasket Gaskets & Seals
+                - link "↗ ver produto" [ref=e180] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=58097e96350b775b679cfe39008412c9c06035a8e14308be5a811900e7e51e53JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTExOTI0MTU2OTUzNSZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e181]: $7.12
+            - generic [ref=e182]:
+              - generic [ref=e183]:
+                - generic [ref=e184]: bing
+                - generic [ref=e185]: HOPESPANNER 10Pcs M11 Black Oil Drain Plug Gaskets Replacement For GM 12616850 3536966 Vehicle Components
+                - link "↗ ver produto" [ref=e186] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=38d27662691cd1d0221095d88db18b9fc81118b35fa5366d2f8603d72472fd02JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTQwMzMxODgwNjkxNCZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e187]: $7.99
+            - generic [ref=e188]:
+              - generic [ref=e189]:
+                - generic [ref=e190]: bing
+                - generic [ref=e191]: GM Genuine Parts 12616850 Engine Oil Pan Drain Plug Seal
+                - link "↗ ver produto" [ref=e192] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=b781e23b2a7dbdecddcf541250b3dc0584b3bb689cb04d1684afca0501cde2beJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTE0MzI2ODI4ODE5MyZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e193]: $10.04
+            - generic [ref=e194]:
+              - generic [ref=e195]:
+                - generic [ref=e196]: bing
+                - generic [ref=e197]: 50PCS Rubber Oil Drain Plug Gasket Replacement For GMC Buick Cadillac Chevrolet Oil Crush Washer 12616850 (M12-GMC)
+                - link "↗ ver produto" [ref=e198] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=70939f1ee7b8831423573d503927a0a1eef11cfd28ee54e43679f476784a0685JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTM5MjcxNzYxOTk0NiZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e199]: $10.39
+            - generic [ref=e200]:
+              - generic [ref=e201]:
+                - generic [ref=e202]: bing
+                - generic [ref=e203]: 10Pcs Black Rubber Sealing Oil Drain Plug Gasket Washer Replacement 12616850
+                - link "↗ ver produto" [ref=e204] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=61da694836941bc5e313de52c8d7ffab0d9261fb04ca5d9f77f181060b94d381JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTM2MTg3NDUyMTg3MyZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e205]: $11.77
+            - generic [ref=e206]:
+              - generic [ref=e207]:
+                - generic [ref=e208]: bing
+                - generic [ref=e209]: Genuine Acdelco Engine Oil Pan Drain Plug Seal 12616850. Acdelco GM/GM Genuine Parts. Gaskets & Seals. 12616850.
+                - link "↗ ver produto" [ref=e210] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=51f1d788c9606629778d8e0e42f37f51b627dade2449ddb90e37b25241687a91JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTQyOTQzOTU2NzkyMCZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e211]: $11.95
+            - generic [ref=e212]:
+              - generic [ref=e213]:
+                - generic [ref=e214]: bing
+                - generic [ref=e215]: General Motors, SEAL, 12616850
+                - link "↗ ver produto" [ref=e216] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=d99cb1f05d00324b711f357ebf3bafda0b521938872b35fb081cb5249044ff53JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTQwNDExMzEzNTk2MiZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e217]: $14.14
+            - generic [ref=e218]:
+              - generic [ref=e219]:
+                - generic [ref=e220]: bing
+                - generic [ref=e221]: Gm Drain Plug Seals 2-12616850 Sealed In Packages Set Of 2
+                - link "↗ ver produto" [ref=e222] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=056104224509957c733e45162e38ab7be3211218c0fd0205335e7be81e77e989JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTQxNzE5OTYxMzE1MyZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e223]: $14.85
+            - generic [ref=e224]:
+              - generic [ref=e225]:
+                - generic [ref=e226]: bing
+                - generic [ref=e227]: Gm Genuine Parts 12616850 Engine Oil Pan Drain Plug Seal, Purple
+                - link "↗ ver produto" [ref=e228] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=853d3088fded81da0404325f3035e366d2ae16d75dd8c7bc1007e858680364eeJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTEzMzA2OTgyMzU2NyZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e229]: $15.98
+            - generic [ref=e230]:
+              - generic [ref=e231]:
+                - generic [ref=e232]: bing
+                - generic [ref=e233]: AC Delco Oil Drain Plug Gasket GM Original Equipment Series, 24-Month Or 24,000-Mile Limited Warranty 12616850
+                - link "↗ ver produto" [ref=e234] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=5b85a5bec85c6e44833f8a986d9973474cef3d06bc5cd75e32629c4625c8c9d4JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTMwMTI1OTM5MzQ0NiZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e235]: $22.25
+            - generic [ref=e236]:
+              - generic [ref=e237]:
+                - generic [ref=e238]: bing
+                - generic [ref=e239]: AC Delco Oil Drain Plug Gasket GM Original Equipment Series, 24-Month Or 24,000-Mile Limited Warranty 12616850
+                - link "↗ ver produto" [ref=e240] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=0ee1011e0eee471314c14f1599bb160a00b1d9653597cd99d7debb1ae4b868d6JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTMwMTMwMDEwNTUxMyZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e241]: $22.25
+            - generic [ref=e242]:
+              - generic [ref=e243]:
+                - generic [ref=e244]: bing
+                - generic [ref=e245]: 100X Oil Pan Drain Plug Seal For Gm Parts 12616850
+                - link "↗ ver produto" [ref=e246] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=ca55096d6010497019a98784b557b129f31cb650f36f50daf58e0b275f678d80JmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTQyODQyMjY2OTg0MiZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e247]: $23.98$26.65
+            - generic [ref=e248]:
+              - generic [ref=e249]:
+                - generic [ref=e250]: bing
+                - generic [ref=e251]: GM Genuine Parts 12616850 Engine Oil Pan Drain Plug Seal
+                - link "↗ ver produto" [ref=e252] [cursor=pointer]:
+                  - /url: https://www.bing.com/ck/a?!&&p=8c2a2125b66d839067ca5a20311885e26165b727c0d925b43568d6e135a6098fJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=0914b2b1-27ae-6b8f-06b0-a53026966a5b&u=a1L3Nob3AvcHJvZHVjdGRldGFpbHM_cT0xMjYxNjg1MCtPRU0rR00rcGFydCZnb2lkPTE3NzcyMDQ0Njc1NCZGT1JNPVNIUFBEUA&ntb=1
+              - generic [ref=e253]: $33.98$67.96
+          - button "▼ ver JSON bruto" [ref=e254] [cursor=pointer]
+      - generic [ref=e255]:
+        - generic [ref=e256] [cursor=pointer]:
+          - generic [ref=e257]: RockAuto
+          - generic [ref=e258]:
+            - generic [ref=e259]: 0 resultados
+            - generic [ref=e260]: ▾
+        - generic [ref=e261]:
+          - generic [ref=e262]: Nenhum resultado.
+          - button "▼ ver JSON bruto" [ref=e263] [cursor=pointer]
+      - generic [ref=e264]:
+        - generic [ref=e265] [cursor=pointer]:
+          - generic [ref=e266]: GMPartsDirect
+          - generic [ref=e267]:
+            - generic [ref=e268]: ok
+            - generic [ref=e269]: ▾
+        - generic [ref=e270]:
+          - generic [ref=e272]:
+            - generic [ref=e273]: Nome
+            - generic [ref=e274]: www.gmpartsdirect.com
+          - button "▼ ver JSON bruto" [ref=e275] [cursor=pointer]
+      - generic [ref=e276]:
+        - generic [ref=e277] [cursor=pointer]:
+          - generic [ref=e278]: ACDelco
+          - generic [ref=e279]:
+            - generic [ref=e280]: erro
+            - generic [ref=e281]: ▾
+        - generic [ref=e282]:
+          - generic [ref=e283]: "✕ page.goto: Timeout 35000ms exceeded. Call log: \x1b[2m - navigating to \"https://www.acdelco.com/search#q=12616850&t=All\", waiting until \"networkidle\"\x1b[22m"
+          - button "▼ ver JSON bruto" [ref=e284] [cursor=pointer]

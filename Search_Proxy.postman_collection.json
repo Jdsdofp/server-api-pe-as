@@ -1,0 +1,180 @@
+{
+  "info": {
+    "name": "Search Proxy",
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/health"
+      },
+      "response": []
+    },
+    {
+      "name": "Busca via GET (Brasil)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/search?q=pe%C3%A7as%20onix&max=5&region=br-pt"
+      },
+      "response": []
+    },
+    {
+      "name": "Busca via GET (EUA)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/search?q=spare+parts&max=5&region=us-en"
+      },
+      "response": []
+    },
+    {
+      "name": "Busca via POST (Brasil)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"peças onix\",\n  \"maxResults\": 5,\n  \"region\": \"br-pt\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/search"
+      },
+      "response": []
+    },
+    {
+      "name": "Busca via POST (EUA)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"spare parts\",\n  \"maxResults\": 5,\n  \"region\": \"us-en\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/search"
+      },
+      "response": []
+    },
+    {
+      "name": "Busca POST - query vazia (erro 400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/search"
+      },
+      "response": []
+    },
+    {
+      "name": "Preço peça — RockAuto (padrão)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/preco?sku=12616850"
+      },
+      "response": []
+    },
+    {
+      "name": "Preço peça — Todas as fontes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/preco?sku=12616850&sources=all"
+      },
+      "response": []
+    },
+    {
+      "name": "Preço peça — Só GMPartsDirect",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/preco?sku=12616850&sources=gmpartsdirect"
+      },
+      "response": []
+    },
+    {
+      "name": "Preço peça — SKU vazio (erro 400)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/preco"
+      },
+      "response": []
+    },
+    {
+      "name": "Cadastro peça — Todas as fontes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/peca?num=12616850"
+      },
+      "response": []
+    },
+    {
+      "name": "Cadastro peça — Só AutoZone",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/peca?num=12616850&sources=autozone"
+      },
+      "response": []
+    },
+    {
+      "name": "Cadastro peça — Só NAPA",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/peca?num=12616850&sources=napa"
+      },
+      "response": []
+    },
+    {
+      "name": "Cadastro peça — Só ACDelco",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/peca?num=12616850&sources=acdelco"
+      },
+      "response": []
+    },
+    {
+      "name": "Cadastro peça — Só RockAuto",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/peca?num=12616850&sources=rockauto"
+      },
+      "response": []
+    },
+    {
+      "name": "Cadastro peça — Múltiplas fontes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/peca?num=12616850&sources=autozone,napa,acdelco"
+      },
+      "response": []
+    }
+  ]
+}

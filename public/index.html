@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parts Lookup — GM</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --ground:   #18181B;
+    --surface:  #27272A;
+    --surface2: #3F3F46;
+    --text:     #EDEDE9;
+    --muted:    #A1A1AA;
+    --accent:   #F5C518;
+    --accent2:  #60A5FA;
+    --danger:   #F87171;
+    --success:  #4ADE80;
+    --mono:     'IBM Plex Mono', monospace;
+    --sans:     'Inter', sans-serif;
+    --radius:   6px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    border-bottom: 1px solid var(--surface2);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    background: var(--ground);
+    z-index: 10;
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.5px;
+    color: var(--accent);
+  }
+  .logo span { color: var(--muted); font-weight: 400; }
+
+  /* ── Search bar ── */
+  .search-wrap {
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface2);
+    padding: 20px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  input[type="text"], select {
+    background: var(--ground);
+    border: 1px solid var(--surface2);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  input[type="text"] { width: 220px; }
+  input[type="text"]:focus, select:focus { border-color: var(--accent); }
+
+  .endpoint-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--ground);
+    border: 1px solid var(--surface2);
+    border-radius: var(--radius);
+    padding: 3px;
+  }
+  .tab-btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--muted);
+    background: transparent;
+    transition: all .15s;
+  }
+  .tab-btn.active {
+    background: var(--surface2);
+    color: var(--text);
+  }
+
+  .sources-wrap { display: flex; flex-direction: column; gap: 5px; }
+  .checkboxes { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cb-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    transition: color .15s;
+  }
+  .cb-label:hover { color: var(--text); }
+  .cb-label input { accent-color: var(--accent); cursor: pointer; }
+
+  .btn-search {
+    background: var(--accent);
+    color: #111;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .5px;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: opacity .15s;
+    white-space: nowrap;
+  }
+  .btn-search:hover { opacity: .85; }
+  .btn-search:disabled { opacity: .4; cursor: not-allowed; }
+
+  /* ── OCR panel ── */
+  .ocr-panel {
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface2);
+    padding: 0 24px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .3s ease, padding .3s ease;
+  }
+  .ocr-panel.open { max-height: 400px; padding: 18px 24px; }
+
+  .ocr-inner {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .ocr-drop {
+    width: 140px; height: 110px;
+    border: 2px dashed var(--surface2);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    transition: border-color .15s, color .15s;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .ocr-drop:hover { border-color: var(--accent2); color: var(--text); }
+  .ocr-drop input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer;
+  }
+  .ocr-preview {
+    width: 140px; height: 110px;
+    object-fit: contain;
+    border-radius: var(--radius);
+    border: 1px solid var(--surface2);
+    background: var(--ground);
+    display: none;
+    flex-shrink: 0;
+  }
+  .ocr-preview.visible { display: block; }
+
+  .ocr-result { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 8px; }
+  .ocr-text-raw {
+    background: var(--ground);
+    border: 1px solid var(--surface2);
+    border-radius: var(--radius);
+    padding: 8px 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    max-height: 80px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .ocr-candidates { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .cand-chip {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--surface2);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .cand-chip:hover, .cand-chip.selected {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(245,197,24,.08);
+  }
+
+  .btn-ocr {
+    background: none;
+    border: 1px solid var(--accent2);
+    border-radius: var(--radius);
+    color: var(--accent2);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: background .15s;
+    white-space: nowrap;
+  }
+  .btn-ocr:hover { background: rgba(96,165,250,.1); }
+  .btn-ocr:disabled { opacity: .4; cursor: not-allowed; }
+
+  .ocr-toggle {
+    background: none;
+    border: none;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 0;
+    transition: color .15s;
+  }
+  .ocr-toggle:hover { color: var(--accent2); }
+
+  /* ── Main ── */
+  main { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+
+  /* ── State messages ── */
+  .state-msg {
+    text-align: center;
+    padding: 60px 24px;
+    font-family: var(--mono);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .state-msg strong { display: block; font-size: 28px; color: var(--surface2); margin-bottom: 10px; }
+
+  /* ── Spinner ── */
+  .spinner {
+    width: 28px; height: 28px;
+    border: 3px solid var(--surface2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    margin: 0 auto 14px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .spinner { animation: none; border-top-color: var(--accent); }
+  }
+
+  /* ── Part hero ── */
+  .part-hero {
+    background: var(--surface);
+    border: 1px solid var(--surface2);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-num {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: -1px;
+    color: var(--accent);
+  }
+  .hero-meta { display: flex; flex-direction: column; gap: 4px; }
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-endpoint {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent2);
+  }
+
+  /* ── Source cards ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 14px;
+  }
+
+  .source-card {
+    background: var(--surface);
+    border: 1px solid var(--surface2);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--surface2);
+    cursor: pointer;
+    user-select: none;
+  }
+  .card-header:hover { background: var(--surface2); }
+
+  .source-name {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+  }
+  .source-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--ground);
+    color: var(--muted);
+  }
+  .source-badge.ok { color: var(--success); border: 1px solid var(--success); }
+  .source-badge.err { color: var(--danger); border: 1px solid var(--danger); }
+
+  .chevron { color: var(--muted); font-size: 10px; transition: transform .2s; }
+  .source-card.collapsed .chevron { transform: rotate(-90deg); }
+  .source-card.collapsed .card-body { display: none; }
+
+  .card-body { padding: 0; }
+
+  /* resultados tipo lista (preço / rockauto) */
+  .result-list { display: flex; flex-direction: column; }
+  .result-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--surface2);
+    align-items: flex-start;
+  }
+  .result-item:last-child { border-bottom: none; }
+
+  .result-img {
+    width: 52px; height: 52px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: var(--ground);
+    flex-shrink: 0;
+  }
+  .result-img-placeholder {
+    width: 52px; height: 52px;
+    background: var(--ground);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--surface2);
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .result-info { flex: 1; min-width: 0; }
+  .result-brand {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .result-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .result-desc { font-size: 12px; color: var(--muted); }
+
+  .result-price {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--accent);
+    white-space: nowrap;
+    margin-left: auto;
+    padding-left: 8px;
+  }
+  .result-oe {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--success);
+    margin-top: 3px;
+  }
+
+  /* resultados tipo cadastro (peca) */
+  .cadastro-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .field-row { display: flex; flex-direction: column; gap: 2px; }
+  .field-key {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field-val { font-size: 13px; color: var(--text); line-height: 1.4; }
+
+  .specs-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .specs-table td { padding: 4px 0; vertical-align: top; }
+  .specs-table td:first-child { color: var(--muted); font-family: var(--mono); width: 45%; padding-right: 8px; }
+
+  .apps-list { display: flex; flex-direction: column; gap: 3px; }
+  .app-item { font-size: 12px; color: var(--muted); padding-left: 12px; position: relative; }
+  .app-item::before { content: '—'; position: absolute; left: 0; color: var(--surface2); }
+
+  .error-msg {
+    padding: 14px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--danger);
+  }
+
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    text-decoration: none;
+    padding: 4px 0;
+  }
+  .link-btn:hover { text-decoration: underline; }
+
+  /* ── JSON raw ── */
+  .raw-toggle {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 10px 16px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-top: 1px solid var(--surface2);
+  }
+  .raw-toggle:hover { color: var(--text); }
+  pre.raw-json {
+    background: var(--ground);
+    border-top: 1px solid var(--surface2);
+    padding: 14px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    display: none;
+  }
+  pre.raw-json.visible { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">PARTS<span>/lookup</span></div>
+  <span style="color:var(--surface2);font-size:12px;font-family:var(--mono)">GM Parts API Tester</span>
+  <button class="ocr-toggle" id="ocrToggle" style="margin-left:auto">📷 OCR</button>
+</header>
+
+<div class="ocr-panel" id="ocrPanel">
+  <div class="ocr-inner">
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+      <div class="ocr-drop" id="ocrDrop">
+        <span style="font-size:22px">⬡</span>
+        <span>foto / upload</span>
+        <input type="file" id="ocrFile" accept="image/*" capture="environment">
+      </div>
+      <img class="ocr-preview" id="ocrPreview" alt="preview">
+      <div style="display:flex;gap:6px">
+        <button class="btn-ocr" id="btnOcr" disabled>Extrair →</button>
+        <button class="btn-ocr" id="btnOcrClear" style="border-color:var(--surface2);color:var(--muted)" disabled>✕</button>
+      </div>
+    </div>
+
+    <div class="ocr-result" id="ocrResult" style="display:none">
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Texto detectado</div>
+      <div class="ocr-text-raw" id="ocrTextRaw"></div>
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Candidatos a número de peça</div>
+      <div class="ocr-candidates" id="ocrCandidates"></div>
+    </div>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <div class="field">
+    <label>Número da peça</label>
+    <input type="text" id="partInput" placeholder="ex: 12616850" value="12616850">
+  </div>
+
+  <div class="field">
+    <label>Endpoint</label>
+    <div class="endpoint-tabs">
+      <button class="tab-btn active" data-ep="preco">/api/preco</button>
+      <button class="tab-btn" data-ep="peca">/api/peca</button>
+      <button class="tab-btn" data-ep="shopping">/api/shopping</button>
+      <button class="tab-btn" data-ep="completa">/api/peca-completa</button>
+    </div>
+  </div>
+
+  <div class="field sources-wrap">
+    <label>Fontes</label>
+    <div class="checkboxes" id="sourcesWrap">
+      <!-- preenchido via JS conforme endpoint -->
+    </div>
+  </div>
+
+  <button class="btn-search" id="btnSearch">Buscar →</button>
+</div>
+
+<main id="main">
+  <div class="state-msg">
+    <strong>⬡</strong>
+    Digite um número de peça GM e clique em Buscar
+  </div>
+</main>
+
+<script>
+const SOURCES = {
+  preco:    ["rockauto", "gmpartsdirect"],
+  peca:     ["autozone", "napa", "acdelco", "rockauto"],
+  shopping: [],
+  completa: [],
+};
+
+let currentEp = "preco";
+
+function renderSourceCheckboxes() {
+  const wrap   = document.getElementById("sourcesWrap");
+  const field  = wrap.closest(".sources-wrap");
+  const sources = SOURCES[currentEp];
+
+  if (!sources || sources.length === 0) {
+    field.style.display = "none";
+    return;
+  }
+  field.style.display = "";
+  wrap.innerHTML = "";
+  sources.forEach((s) => {
+    wrap.innerHTML += `
+      <label class="cb-label">
+        <input type="checkbox" id="cb_${s}" value="${s}" checked>
+        ${s}
+      </label>`;
+  });
+}
+
+// Tabs de endpoint
+document.querySelectorAll(".tab-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentEp = btn.dataset.ep;
+    renderSourceCheckboxes();
+  });
+});
+
+renderSourceCheckboxes();
+
+// Enter para buscar
+document.getElementById("partInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") document.getElementById("btnSearch").click();
+});
+
+document.getElementById("btnSearch").addEventListener("click", async () => {
+  const num = document.getElementById("partInput").value.trim();
+  if (!num) return;
+
+  let url;
+  if (currentEp === "shopping") {
+    url = `/api/shopping?sku=${encodeURIComponent(num)}`;
+  } else if (currentEp === "completa") {
+    url = `/api/peca-completa?num=${encodeURIComponent(num)}`;
+  } else {
+    const checked = [...document.querySelectorAll("#sourcesWrap input:checked")].map((el) => el.value);
+    if (checked.length === 0) { alert("Selecione ao menos uma fonte."); return; }
+    const sources = checked.join(",");
+    const param   = currentEp === "preco" ? "sku" : "num";
+    url = `/api/${currentEp}?${param}=${encodeURIComponent(num)}&sources=${sources}`;
+  }
+
+  const btn = document.getElementById("btnSearch");
+  btn.disabled = true;
+
+  document.getElementById("main").innerHTML = `
+    <div class="state-msg">
+      <div class="spinner"></div>
+      Consultando fontes…<br><small style="color:var(--surface2);font-family:var(--mono)">${url}</small>
+    </div>`;
+
+  try {
+    const res  = await fetch(url);
+    const data = await res.json();
+    if (currentEp === "shopping") {
+      renderShopping(data, url);
+    } else if (currentEp === "completa") {
+      renderCompleta(data, url);
+    } else {
+      renderResults(data, url);
+    }
+  } catch (err) {
+    document.getElementById("main").innerHTML = `
+      <div class="state-msg">
+        <strong style="color:var(--danger)">✕</strong>
+        Erro ao conectar na API.<br><small>${err.message}</small>
+      </div>`;
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+function renderResults(data, url) {
+  const pn = data.sku || data.partNumber || "—";
+
+  let html = `
+    <div class="part-hero">
+      <div class="hero-num">${esc(pn)}</div>
+      <div class="hero-meta">
+        <span class="hero-label">Número consultado</span>
+        <span class="hero-endpoint">${esc(url)}</span>
+      </div>
+    </div>
+    <div class="cards-grid">`;
+
+  const skip = new Set(["sku", "partNumber"]);
+  Object.entries(data).forEach(([source, value]) => {
+    if (skip.has(source)) return;
+    html += renderCard(source, value);
+  });
+
+  html += `</div>`;
+  document.getElementById("main").innerHTML = html;
+
+  // Collapse toggle
+  document.querySelectorAll(".card-header").forEach((h) => {
+    h.addEventListener("click", () => {
+      h.closest(".source-card").classList.toggle("collapsed");
+    });
+  });
+
+  // Raw JSON toggle
+  document.querySelectorAll(".raw-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const pre = btn.nextElementSibling;
+      pre.classList.toggle("visible");
+      btn.textContent = pre.classList.contains("visible") ? "▲ esconder JSON" : "▼ ver JSON bruto";
+    });
+  });
+}
+
+function renderCard(source, value) {
+  const isError = value && value.error;
+
+  let badge = "";
+  if (isError) badge = `<span class="source-badge err">erro</span>`;
+  else if (Array.isArray(value)) badge = `<span class="source-badge ok">${value.length} resultado${value.length !== 1 ? "s" : ""}</span>`;
+  else badge = `<span class="source-badge ok">ok</span>`;
+
+  let body = "";
+  if (isError) {
+    body = `<div class="error-msg">✕ ${esc(value.error)}</div>`;
+  } else if (Array.isArray(value)) {
+    body = renderListResults(value);
+  } else {
+    body = renderCadastro(value);
+  }
+
+  const rawJson = JSON.stringify(value, null, 2);
+
+  return `
+    <div class="source-card">
+      <div class="card-header">
+        <span class="source-name">${esc(source)}</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          ${badge}
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="card-body">
+        ${body}
+        <button class="raw-toggle">▼ ver JSON bruto</button>
+        <pre class="raw-json">${esc(rawJson)}</pre>
+      </div>
+    </div>`;
+}
+
+function renderListResults(items) {
+  if (!items.length) return `<div class="error-msg">Nenhum resultado.</div>`;
+  return `<div class="result-list">` + items.map((item) => {
+    const img = item.image
+      ? `<img class="result-img" src="${esc(item.image)}" alt="" loading="lazy" onerror="this.style.display='none'">`
+      : `<div class="result-img-placeholder">◻</div>`;
+
+    const price = item.price != null
+      ? `<div class="result-price">${esc(item.priceRaw || "")}</div>`
+      : (item.priceRaw ? `<div class="result-price" style="color:var(--muted);font-size:11px">${esc(item.priceRaw)}</div>` : "");
+
+    const oeTag = item.isOEMatch ? `<div class="result-oe">✓ OE match</div>` : "";
+    const link  = item.productUrl ? `<a class="link-btn" href="${esc(item.productUrl)}" target="_blank" rel="noopener">↗ ver produto</a>` : "";
+
+    return `
+      <div class="result-item">
+        ${img}
+        <div class="result-info">
+          <div class="result-brand">${esc(item.brand || item.source || "")}</div>
+          <div class="result-name">${esc(item.name || item.partNum || "—")}</div>
+          <div class="result-desc">${esc(item.description || "")}</div>
+          ${oeTag}
+          ${link}
+        </div>
+        ${price}
+      </div>`;
+  }).join("") + `</div>`;
+}
+
+function renderCadastro(item) {
+  if (!item) return `<div class="error-msg">Sem dados.</div>`;
+
+  const rows = [];
+
+  if (item.name)        rows.push(["Nome",        item.name]);
+  if (item.description) rows.push(["Descrição",   item.description]);
+  if (item.category)    rows.push(["Categoria",   item.category]);
+  if (item.partNumber)  rows.push(["Part Number", item.partNumber]);
+
+  let html = `<div class="cadastro-body">`;
+
+  if (item.image) {
+    html += `<img src="${esc(item.image)}" style="max-width:100%;max-height:140px;object-fit:contain;border-radius:4px;background:var(--ground)" alt="" loading="lazy">`;
+  }
+
+  rows.forEach(([k, v]) => {
+    html += `<div class="field-row"><span class="field-key">${esc(k)}</span><span class="field-val">${esc(v)}</span></div>`;
+  });
+
+  if (item.specifications && Object.keys(item.specifications).length > 0) {
+    html += `<div class="field-row"><span class="field-key">Especificações</span>
+      <table class="specs-table">`;
+    Object.entries(item.specifications).forEach(([k, v]) => {
+      html += `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`;
+    });
+    html += `</table></div>`;
+  }
+
+  if (item.applications && item.applications.length > 0) {
+    html += `<div class="field-row"><span class="field-key">Aplicações (${item.applications.length})</span>
+      <div class="apps-list">`;
+    item.applications.forEach((a) => { html += `<div class="app-item">${esc(a)}</div>`; });
+    html += `</div></div>`;
+  }
+
+  if (item.productUrl) {
+    html += `<a class="link-btn" href="${esc(item.productUrl)}" target="_blank" rel="noopener">↗ ver na fonte</a>`;
+  }
+
+  html += `</div>`;
+  return html;
+}
+
+// ── Peca Completa ─────────────────────────────────────────────────────────────
+
+function renderCompleta(data, url) {
+  if (data.error) {
+    document.getElementById("main").innerHTML = `
+      <div class="state-msg"><strong style="color:var(--danger)">✕</strong>${esc(data.error)}</div>`;
+    return;
+  }
+
+  const pn = data.partNumber || "—";
+
+  // Hero com nome e melhor preço
+  let heroExtra = "";
+  if (data.name && data.name !== "Access Denied") {
+    heroExtra += `<div class="hero-meta"><span class="hero-label">Nome</span><span style="font-size:13px;color:var(--text)">${esc(data.name)}</span></div>`;
+  }
+  if (data.category) {
+    heroExtra += `<div class="hero-meta"><span class="hero-label">Categoria</span><span style="font-size:13px;color:var(--muted)">${esc(data.category)}</span></div>`;
+  }
+  if (data.bestPrice) {
+    heroExtra += `<div class="hero-meta"><span class="hero-label">Melhor preço</span><span style="font-family:var(--mono);font-weight:700;font-size:20px;color:var(--success)">$${data.bestPrice.price.toFixed(2)}</span></div>`;
+  }
+
+  let html = `
+    <div class="part-hero" style="flex-wrap:wrap;gap:24px">
+      <div>
+        <div class="hero-num">${esc(pn)}</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--surface2);margin-top:4px">${esc(url)}</div>
+      </div>
+      ${heroExtra}
+      ${data.image ? `<img src="${esc(data.image)}" style="height:80px;object-fit:contain;border-radius:4px;background:var(--ground);margin-left:auto" alt="" loading="lazy">` : ""}
+    </div>`;
+
+  // Tabela de todos os preços
+  const prices = data.allPrices || [];
+  if (prices.length > 0) {
+    html += `
+      <div style="background:var(--surface);border:1px solid var(--surface2);border-radius:var(--radius);overflow:hidden">
+        <div style="padding:10px 16px;border-bottom:1px solid var(--surface2);font-family:var(--mono);font-size:11px;color:var(--muted)">
+          PREÇOS ENCONTRADOS — ${prices.length} oferta${prices.length !== 1 ? "s" : ""} (ordenado menor→maior)
+        </div>
+        <div class="result-list">`;
+    prices.forEach((p, i) => {
+      const badge = i === 0 ? `<span style="font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:20px;background:rgba(74,222,128,.12);color:var(--success);border:1px solid var(--success);margin-left:6px">melhor</span>` : "";
+      const link  = p.url && !p.url.includes("void(0)")
+        ? `<a class="link-btn" href="${esc(p.url)}" target="_blank" rel="noopener">↗</a>` : "";
+      html += `
+        <div class="result-item" style="align-items:center">
+          <div class="result-img-placeholder" style="font-size:13px;font-family:var(--mono);color:var(--muted)">#${i+1}</div>
+          <div class="result-info">
+            <div class="result-brand">${esc(p.store || "")}</div>
+            ${link}
+          </div>
+          <div class="result-price">$${p.price.toFixed(2)}${badge}</div>
+        </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Cards por fonte (shopping, rockauto, acdelco)
+  const s = data.sources || {};
+  html += `<div class="cards-grid">`;
+
+  // Bing Shopping
+  const shoppingProds = s.shopping?.products || [];
+  html += renderCard("Bing Shopping", shoppingProds.length ? shoppingProds.map(p => ({
+    name: p.name, priceRaw: p.priceRaw, price: p.price, image: p.image,
+    productUrl: p.productUrl, source: "bing"
+  })) : (s.shopping?.error ? { error: s.shopping.error } : []));
+
+  // RockAuto
+  html += renderCard("RockAuto", s.rockauto);
+
+  // ACDelco
+  html += renderCard("ACDelco", s.acdelco);
+
+  html += `</div>`;
+
+  document.getElementById("main").innerHTML = html;
+
+  document.querySelectorAll(".card-header").forEach((h) => {
+    h.addEventListener("click", () => h.closest(".source-card").classList.toggle("collapsed"));
+  });
+  document.querySelectorAll(".raw-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const pre = btn.nextElementSibling;
+      pre.classList.toggle("visible");
+      btn.textContent = pre.classList.contains("visible") ? "▲ esconder JSON" : "▼ ver JSON bruto";
+    });
+  });
+}
+
+// ── Bing Shopping ─────────────────────────────────────────────────────────────
+
+function renderShopping(data, url) {
+  if (data.error) {
+    document.getElementById("main").innerHTML = `
+      <div class="state-msg"><strong style="color:var(--danger)">✕</strong>${esc(data.error)}</div>`;
+    return;
+  }
+
+  const products = data.products || [];
+  const heroNum  = data.query || "—";
+
+  let html = `
+    <div class="part-hero">
+      <div class="hero-num">${esc(heroNum)}</div>
+      <div class="hero-meta">
+        <span class="hero-label">Bing Shopping</span>
+        <span class="hero-endpoint">${esc(url)}</span>
+      </div>
+    </div>`;
+
+  // Screenshot
+  if (data.screenshot) {
+    html += `
+      <div style="background:var(--surface);border:1px solid var(--surface2);border-radius:var(--radius);overflow:hidden">
+        <div style="padding:10px 16px;border-bottom:1px solid var(--surface2);font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center">
+          <span>SCREENSHOT — Google Shopping</span>
+          <a href="${esc(data.screenshot)}" download="shopping_${esc(heroNum)}.jpg"
+             style="font-family:var(--mono);font-size:11px;color:var(--accent2);text-decoration:none">⬇ baixar</a>
+        </div>
+        <img src="${esc(data.screenshot)}" style="width:100%;max-height:480px;object-fit:contain;display:block;background:#fff" alt="screenshot">
+      </div>`;
+  }
+
+  // Produtos parseados
+  if (products.length > 0) {
+    html += `
+      <div style="background:var(--surface);border:1px solid var(--surface2);border-radius:var(--radius);overflow:hidden">
+        <div style="padding:10px 16px;border-bottom:1px solid var(--surface2);font-family:var(--mono);font-size:11px;color:var(--muted)">
+          PRODUTOS DETECTADOS — ${products.length} item${products.length !== 1 ? "s" : ""}
+        </div>
+        <div class="result-list">`;
+
+    products.forEach((p) => {
+      const img = p.image
+        ? `<img class="result-img" src="${esc(p.image)}" alt="" loading="lazy" onerror="this.style.display='none'">`
+        : `<div class="result-img-placeholder">◻</div>`;
+      const link = p.productUrl
+        ? `<a class="link-btn" href="${esc(p.productUrl)}" target="_blank" rel="noopener">↗ ver</a>`
+        : "";
+
+      html += `
+        <div class="result-item">
+          ${img}
+          <div class="result-info">
+            <div class="result-brand">${esc(p.store || "")}</div>
+            <div class="result-name">${esc(p.name || "—")}</div>
+            ${link}
+          </div>
+          <div class="result-price">${esc(p.price || "")}</div>
+        </div>`;
+    });
+
+    html += `</div></div>`;
+  } else {
+    html += `
+      <div style="background:var(--surface);border:1px solid var(--surface2);border-radius:var(--radius);padding:16px;font-family:var(--mono);font-size:12px;color:var(--muted)">
+        Nenhum produto extraído automaticamente — veja o screenshot acima.
+      </div>`;
+  }
+
+  document.getElementById("main").innerHTML = html;
+}
+
+// ── OCR ──────────────────────────────────────────────────────────────────────
+
+document.getElementById("ocrToggle").addEventListener("click", () => {
+  document.getElementById("ocrPanel").classList.toggle("open");
+});
+
+let ocrDataUrl = null;
+
+document.getElementById("ocrFile").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    ocrDataUrl = ev.target.result;
+    const preview = document.getElementById("ocrPreview");
+    preview.src = ocrDataUrl;
+    preview.classList.add("visible");
+    document.getElementById("ocrDrop").style.display = "none";
+    document.getElementById("btnOcr").disabled = false;
+    document.getElementById("btnOcrClear").disabled = false;
+    document.getElementById("ocrResult").style.display = "none";
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById("btnOcrClear").addEventListener("click", () => {
+  ocrDataUrl = null;
+  document.getElementById("ocrPreview").classList.remove("visible");
+  document.getElementById("ocrDrop").style.display = "";
+  document.getElementById("btnOcr").disabled = true;
+  document.getElementById("btnOcrClear").disabled = true;
+  document.getElementById("ocrResult").style.display = "none";
+  document.getElementById("ocrFile").value = "";
+});
+
+document.getElementById("btnOcr").addEventListener("click", async () => {
+  if (!ocrDataUrl) return;
+  const btn = document.getElementById("btnOcr");
+  btn.disabled = true;
+  btn.textContent = "Lendo…";
+
+  try {
+    const res  = await fetch("/api/ocr", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: ocrDataUrl }),
+    });
+    const data = await res.json();
+
+    document.getElementById("ocrResult").style.display = "flex";
+    document.getElementById("ocrTextRaw").textContent = data.text || "(sem texto detectado)";
+
+    const container = document.getElementById("ocrCandidates");
+    container.innerHTML = "";
+
+    if (!data.candidates || data.candidates.length === 0) {
+      container.innerHTML = `<span style="font-family:var(--mono);font-size:12px;color:var(--danger)">Nenhum número encontrado</span>`;
+    } else {
+      data.candidates.forEach((c, i) => {
+        const chip = document.createElement("button");
+        chip.className = "cand-chip" + (i === 0 ? " selected" : "");
+        chip.textContent = c;
+        chip.addEventListener("click", () => {
+          document.querySelectorAll(".cand-chip").forEach(el => el.classList.remove("selected"));
+          chip.classList.add("selected");
+          document.getElementById("partInput").value = c;
+        });
+        container.appendChild(chip);
+      });
+
+      // auto-preenche com o primeiro candidato
+      if (data.partNumber) {
+        document.getElementById("partInput").value = data.partNumber;
+      }
+    }
+  } catch (err) {
+    document.getElementById("ocrResult").style.display = "flex";
+    document.getElementById("ocrTextRaw").textContent = "Erro: " + err.message;
+    document.getElementById("ocrCandidates").innerHTML = "";
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Extrair →";
+  }
+});
+
+function esc(str) {
+  if (str == null) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+</script>
+</body>
+</html>

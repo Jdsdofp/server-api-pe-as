@@ -1,0 +1,4 @@
+node_modules/
+debug_*.html
+captcha_tmp.png
+.env

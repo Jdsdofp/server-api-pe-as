@@ -1,0 +1,38 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]: PARTS/lookup
+    - generic [ref=e4]: GM Parts API Tester
+    - button "📷 OCR" [ref=e5] [cursor=pointer]
+  - generic [ref=e8]:
+    - generic [ref=e9] [cursor=pointer]:
+      - generic [ref=e10]: ⬡
+      - generic [ref=e11]: foto / upload
+      - button "Choose File" [ref=e12]
+    - generic [ref=e13]:
+      - button "Extrair →" [disabled] [ref=e14]
+      - button "✕" [disabled] [ref=e15]
+  - generic [ref=e16]:
+    - generic [ref=e17]:
+      - generic [ref=e18]: Número da peça
+      - 'textbox "ex: 12616850" [ref=e19]': "12616850"
+    - generic [ref=e20]:
+      - generic [ref=e21]: Endpoint
+      - generic [ref=e22]:
+        - button "/api/preco" [ref=e23] [cursor=pointer]
+        - button "/api/peca" [ref=e24] [cursor=pointer]
+        - button "/api/shopping" [ref=e25] [cursor=pointer]
+        - button "/api/peca-completa" [ref=e26] [cursor=pointer]
+    - generic [ref=e27]:
+      - generic [ref=e28]: Fontes
+      - generic [ref=e29]:
+        - generic [ref=e30] [cursor=pointer]:
+          - checkbox "rockauto" [checked] [ref=e31]
+          - text: rockauto
+        - generic [ref=e32] [cursor=pointer]:
+          - checkbox "gmpartsdirect" [checked] [ref=e33]
+          - text: gmpartsdirect
+    - button "Buscar →" [ref=e34] [cursor=pointer]
+  - main [ref=e35]:
+    - generic [ref=e36]:
+      - strong [ref=e37]: ⬡
+      - text: Digite um número de peça GM e clique em Buscar
