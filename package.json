@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "npx playwright install chromium --with-deps"
+    "build": "npx playwright install chromium"
   },
   "dependencies": {
     "express": "^4.19.2",

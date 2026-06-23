@@ -2,7 +2,7 @@ services:
   - type: web
     name: parts-lookup-api
     runtime: node
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && npx playwright install chromium
     startCommand: npm start
     plan: starter
     envVars:
